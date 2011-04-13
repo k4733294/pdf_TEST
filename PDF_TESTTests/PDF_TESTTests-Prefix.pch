@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PDF_TESTTests' target in the 'PDF_TESTTests' project
+//
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+#endif
