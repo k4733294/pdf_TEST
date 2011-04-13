@@ -9,9 +9,15 @@
 #import "PDF_TESTViewController.h"
 
 @implementation PDF_TESTViewController
+@synthesize webView, pdfUrl;
+
+#pragma mark -
+#pragma mark UIViewController methods
 
 - (void)dealloc
 {
+    [webView release];
+    [pdfUrl release];
     [super dealloc];
 }
 
@@ -25,19 +31,35 @@
 
 #pragma mark - View lifecycle
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
+	// Tells the webView to load pdfUrl
+	[webView loadRequest:[NSURLRequest requestWithURL:pdfUrl]];
+    // Create an instance of PDFViewController
+    PDF_TESTViewController *controller = [[PDF_TESTViewController alloc] initWithNibName:@"PDFView" bundle:nil];
+    // Get the path to our documents directory
+    NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    // This should be our documents directory
+    NSString *saveDirectory = [documentPath objectAtIndex:0];
+    // Our PDF is named 'Example.pdf'
+    NSString *saveFileName = @"Example.pdf";
+    // Create the full path using our saveDirectory and saveFileName
+    NSString *finalPath = [saveDirectory stringByAppendingPathComponent:saveFileName];
+    // Set the pdfUrl to our finalPath
+    controller.pdfUrl = [NSURL fileURLWithPath:finalPath];
+    // Push 'controller'
+    [self.navigationController pushViewController:controller animated:YES];
+    // Release 'controller'
+    [controller release];
+    
 }
-*/
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
